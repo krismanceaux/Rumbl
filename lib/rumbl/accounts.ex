@@ -7,7 +7,7 @@ defmodule Rumbl.Accounts do
   alias Rumbl.Accounts.User
 
   def list_users do
-  Repo.all(User)
+    Repo.all(User)
 
     # this commented-out stuff was used before setting up the repo
     # [
@@ -20,14 +20,14 @@ defmodule Rumbl.Accounts do
   def get_user(id) do
     Repo.get(User, id)
     # this commented-out stuff was used before setting up the repo
-    #Enum.find(list_users(), fn map -> map.id == id end)
+    # Enum.find(list_users(), fn map -> map.id == id end)
   end
 
   def get_user!(id) do
     Repo.get!(User, id)
   end
 
-  def get_user_by(params) do 
+  def get_user_by(params) do
     Repo.get_by(User, params)
     # this commented-out stuff was used before setting up the repo
     # Enum.find(list_users(), fn map ->
@@ -64,10 +64,10 @@ defmodule Rumbl.Accounts do
       user && Pbkdf2.verify_pass(given_pass, user.password_hash) ->
         {:ok, user}
 
-      user -> 
+      user ->
         {:error, :unauthorized}
 
-      true -> 
+      true ->
         Pbkdf2.no_user_verify()
         {:error, :not_found}
     end

@@ -10,7 +10,7 @@ defmodule RumblWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def index(conn, _params) do 
+  def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.html", users: users)
   end
@@ -21,7 +21,7 @@ defmodule RumblWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Accounts.register_user(user_params) do 
+    case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
         |> RumblWeb.Auth.login(user)
@@ -42,7 +42,5 @@ defmodule RumblWeb.UserController do
       |> redirect(to: Routes.page_path(conn, :index))
       |> halt()
     end
-
   end
-
 end

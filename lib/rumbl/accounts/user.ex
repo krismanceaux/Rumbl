@@ -2,16 +2,17 @@ defmodule Rumbl.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "users" do 
+  schema "users" do
     field :name, :string
     field :username, :string
-    field :password, :string, virtual: true # Virtual fields are not persisted to the database
+    # Virtual fields are not persisted to the database
+    field :password, :string, virtual: true
     field :password_hash, :string
 
     timestamps()
   end
 
-  def changeset(user, attrs) do 
+  def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :username])
     |> validate_required([:name, :username])
@@ -21,7 +22,8 @@ defmodule Rumbl.Accounts.User do
   def registration_changeset(user, params) do
     user
     |> changeset(params)
-    |> cast(params, [:password]) # takes the fields from the struct and and applies the values from the "params" variable to create the changeset with a password
+    # takes the fields from the struct and and applies the values from the "params" variable to create the changeset with a password
+    |> cast(params, [:password])
     |> validate_required([:password])
     |> validate_length(:password, min: 6, max: 100)
     |> put_pass_hash()
@@ -36,5 +38,4 @@ defmodule Rumbl.Accounts.User do
         changeset
     end
   end
-
 end
